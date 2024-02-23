@@ -3,10 +3,10 @@ class Processor {
     Set<String> setA = a.toSet();
     for (String element in b) {
       if (!setA.contains(element)) {
-        return true;
+        return false;
       }
     }
-    return false;
+    return true;
   }
 
   List<String> union(List<String> a, List<String> b) {
