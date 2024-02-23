@@ -81,10 +81,46 @@ class ConjuntoPageState extends State<ConjuntoPage> {
     return;
   }
 
+  _onPertenece() {
+    setState(() {
+      bool res = processor.pertain(listA, listB);
+      _message = 'El Conjunto B ${!res ? 'NO' : ''} está contenido en el conjunto A ';
+      _result = "";
+    });
+  }
+
   _onUnion() {
     setState(() {
       _message = 'La ${widget.title} del Conjunto A y el Conjunto B es: ';
       _result = processor.union(listA, listB).formatter();
+    });
+  }
+
+  _onInterseccion() {
+    setState(() {
+      _message = 'La ${widget.title} del Conjunto A y el Conjunto B es: ';
+      _result = processor.interception(listA, listB).formatter();
+    });
+  }
+
+  _onComplemento() {
+    setState(() {
+      _message = 'El ${widget.title} del Conjunto B respecto al Conjunto A es: ';
+      _result = processor.complement(listA, listB).formatter();
+    });
+  }
+
+  _onAbsoluta() {
+    setState(() {
+      _message = 'La ${widget.title} del Conjunto A respecto al Conjunto B es: ';
+      _result = processor.absolute(listA, listB).formatter();
+    });
+  }
+
+  _onSimetrica() {
+    setState(() {
+      _message = 'La ${widget.title} del Conjunto A y el Conjunto B es: ';
+      _result = processor.symmetric(listA, listB).formatter();
     });
   }
 
@@ -111,8 +147,18 @@ class ConjuntoPageState extends State<ConjuntoPage> {
     listB = controllerB.text.trim().split(",");
 
     switch (widget.index) {
+      case 1:
+        return _onPertenece();
       case 2:
         return _onUnion();
+      case 3:
+        return _onInterseccion();
+      case 4:
+        return _onComplemento();
+      case 5:
+        return _onAbsoluta();
+      case 6:
+        return _onSimetrica();
       default:
         return _onConstruction();
     }
