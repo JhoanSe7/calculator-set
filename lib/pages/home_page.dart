@@ -1,9 +1,11 @@
 import 'package:calculator/helpers/paths/paths.dart';
 import 'package:calculator/helpers/widgets/custom_dropdown_menu_widget.dart';
 import 'package:calculator/helpers/widgets/title_widget.dart';
-import 'package:calculator/pages/conjuntos/conjunto_page.dart';
+import 'package:calculator/models/item.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+import 'generator_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +20,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
-        title: const Text("Calculator"),
+        title: const TitleWidget(
+          "Calculator",
+          textColor: Colors.white,
+          fontSize: 22,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -43,28 +50,31 @@ class _HomePageState extends State<HomePage> {
             CustomDropdownMenuWidget(
               title: "Conjuntos",
               icon: path.icons + icons.conjunto,
-              items: {
-                "Pertenencia": () => _goToConjunto('Pertenencia', 1),
-                "Unión": () => _goToConjunto('Unión', 2),
-                "Intersección": () => _goToConjunto('Intersección', 3),
-                "Complemento": () => _goToConjunto('Complemento', 4),
-                "Diferencia Absoluta": () => _goToConjunto('Diferencia Absoluta', 5),
-                "Diferencia Simetrica": () => _goToConjunto('Diferencia Simetrica', 6),
-              },
+              items: [
+                Item(title: 'Pertenencia', action: () => _goToSet('Pertenencia', 1)),
+                Item(title: 'Unión', action: () => _goToSet('Unión', 2)),
+                Item(title: 'Intersección', action: () => _goToSet('Intersección', 3)),
+                Item(title: 'Complemento', action: () => _goToSet('Complemento', 4)),
+                Item(title: 'Diferencia Absoluta', action: () => _goToSet('Diferencia Absoluta', 5)),
+                Item(title: 'Diferencia Simetrica', action: () => _goToSet('Diferencia Simetrica', 6)),
+              ],
             ),
             CustomDropdownMenuWidget(
               title: "Cadenas",
               icon: path.icons + icons.cadena,
-              items: {
-                'vacio': () {},
-              },
+              items: [
+                Item(title: 'Longitud', action: () => _goToString('Longitud', 1)),
+                Item(title: 'Concatenación', action: () => _goToString('Concatenación', 2)),
+                Item(title: 'Potenciación', action: () => _goToString('Potenciación', 3)),
+                Item(title: 'Inversa o Trasposición', action: () => _goToString('Inversa o Trasposición', 4)),
+              ],
             ),
             CustomDropdownMenuWidget(
               title: "Lenguajes",
               icon: path.icons + icons.lenguaje,
-              items: {
-                'vacio': () {},
-              },
+              items: [
+                Item(title: 'Vacío', action: () {}),
+              ],
             ),
           ],
         ),
@@ -95,12 +105,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _goToConjunto(String page, int index) {
+  _goToSet(String page, int index) {
     Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ConjuntoPage(title: page, index: index),
+        builder: (context) => GeneratorPage(title: page, index: index, view: ViewPage.set),
+      ),
+    );
+  }
+
+  _goToString(String page, int index) {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GeneratorPage(title: page, index: index, view: ViewPage.string),
       ),
     );
   }

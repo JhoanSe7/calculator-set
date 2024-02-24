@@ -1,3 +1,4 @@
+import 'package:calculator/models/item.dart';
 import 'package:flutter/material.dart';
 
 import 'paragraph_widget.dart';
@@ -13,7 +14,7 @@ class CustomDropdownMenuWidget extends StatefulWidget {
 
   final String title;
   final String icon;
-  final Map<String, Function()?> items;
+  final List<Item> items;
 
   @override
   State<CustomDropdownMenuWidget> createState() => CustomDropdownMenuWidgetState();
@@ -44,14 +45,13 @@ class CustomDropdownMenuWidgetState extends State<CustomDropdownMenuWidget> {
                 ),
               ),
               body: Column(
-                  children: widget.items.entries
-                      .toList()
+                  children: widget.items
                       .map((item) => ListTile(
                             leading: const Icon(Icons.keyboard_double_arrow_right),
                             dense: true,
-                            title: ParagraphWidget(item.key),
+                            title: ParagraphWidget(item.title ?? ''),
                             tileColor: Colors.lightGreen.withOpacity(0.1),
-                            onTap: item.value,
+                            onTap: item.action,
                           ))
                       .toList()),
               isExpanded: _isExpanded,
