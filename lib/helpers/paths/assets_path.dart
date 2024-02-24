@@ -6,4 +6,3 @@ class AssetsPath {
 }
 
 final path = AssetsPath();
-

@@ -31,7 +31,8 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Colors.lightGreen.withOpacity(.9)),
+              decoration:
+                  BoxDecoration(color: Colors.lightGreen.withOpacity(.9)),
               child: Column(
                 children: [
                   Container(
@@ -43,7 +44,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  const TitleWidget('Menú', textColor: Colors.white, shadow: true),
+                  const TitleWidget('Menú',
+                      textColor: Colors.white, shadow: true),
                 ],
               ),
             ),
@@ -51,22 +53,40 @@ class _HomePageState extends State<HomePage> {
               title: "Conjuntos",
               icon: path.icons + icons.conjunto,
               items: [
-                Item(title: 'Pertenencia', action: () => _goToSet('Pertenencia', 1)),
+                Item(
+                    title: 'Pertenencia',
+                    action: () => _goToSet('Pertenencia', 1)),
                 Item(title: 'Unión', action: () => _goToSet('Unión', 2)),
-                Item(title: 'Intersección', action: () => _goToSet('Intersección', 3)),
-                Item(title: 'Complemento', action: () => _goToSet('Complemento', 4)),
-                Item(title: 'Diferencia Absoluta', action: () => _goToSet('Diferencia Absoluta', 5)),
-                Item(title: 'Diferencia Simetrica', action: () => _goToSet('Diferencia Simetrica', 6)),
+                Item(
+                    title: 'Intersección',
+                    action: () => _goToSet('Intersección', 3)),
+                Item(
+                    title: 'Complemento',
+                    action: () => _goToSet('Complemento', 4)),
+                Item(
+                    title: 'Diferencia Absoluta',
+                    action: () => _goToSet('Diferencia Absoluta', 5)),
+                Item(
+                    title: 'Diferencia Simetrica',
+                    action: () => _goToSet('Diferencia Simetrica', 6)),
               ],
             ),
             CustomDropdownMenuWidget(
               title: "Cadenas",
               icon: path.icons + icons.cadena,
               items: [
-                Item(title: 'Longitud', action: () => _goToString('Longitud', 1)),
-                Item(title: 'Concatenación', action: () => _goToString('Concatenación', 2)),
-                Item(title: 'Potenciación', action: () => _goToString('Potenciación', 3)),
-                Item(title: 'Inversa o Trasposición', action: () => _goToString('Inversa o Trasposición', 4)),
+                Item(
+                    title: 'Longitud',
+                    action: () => _goToString('Longitud', 1)),
+                Item(
+                    title: 'Concatenación',
+                    action: () => _goToString('Concatenación', 2)),
+                Item(
+                    title: 'Potenciación',
+                    action: () => _goToString('Potenciación', 3)),
+                Item(
+                    title: 'Inversa o Trasposición',
+                    action: () => _goToString('Inversa o Trasposición', 4)),
               ],
             ),
             CustomDropdownMenuWidget(
@@ -88,12 +108,17 @@ class _HomePageState extends State<HomePage> {
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: TextStyle(color: Colors.grey[900], height: 2, fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.grey[900],
+                      height: 2,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                   children: const [
                     TextSpan(text: "Dirígete al menú "),
                     WidgetSpan(child: Icon(Icons.menu)),
                     TextSpan(
-                      text: " en la parte\nsuperior izquierda y selecciona una opción.",
+                      text:
+                          " en la parte\nsuperior izquierda y selecciona una opción.",
                     )
                   ],
                 ),
@@ -110,7 +135,8 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GeneratorPage(title: page, index: index, view: ViewPage.set),
+        builder: (context) =>
+            GeneratorPage(title: page, index: index, view: ViewPage.set),
       ),
     );
   }
@@ -120,7 +146,8 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GeneratorPage(title: page, index: index, view: ViewPage.string),
+        builder: (context) =>
+            GeneratorPage(title: page, index: index, view: ViewPage.string),
       ),
     );
   }

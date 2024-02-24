@@ -17,7 +17,8 @@ class CustomDropdownMenuWidget extends StatefulWidget {
   final List<Item> items;
 
   @override
-  State<CustomDropdownMenuWidget> createState() => CustomDropdownMenuWidgetState();
+  State<CustomDropdownMenuWidget> createState() =>
+      CustomDropdownMenuWidgetState();
 }
 
 class CustomDropdownMenuWidgetState extends State<CustomDropdownMenuWidget> {
@@ -33,7 +34,8 @@ class CustomDropdownMenuWidgetState extends State<CustomDropdownMenuWidget> {
           animationDuration: const Duration(milliseconds: 500),
           children: [
             ExpansionPanel(
-              headerBuilder: (BuildContext context, bool isExpanded) => ListTile(
+              headerBuilder: (BuildContext context, bool isExpanded) =>
+                  ListTile(
                 leading: Image.asset(widget.icon, width: 20, height: 20),
                 onTap: () => setState(() {
                   _isExpanded = !isExpanded;
@@ -47,7 +49,8 @@ class CustomDropdownMenuWidgetState extends State<CustomDropdownMenuWidget> {
               body: Column(
                   children: widget.items
                       .map((item) => ListTile(
-                            leading: const Icon(Icons.keyboard_double_arrow_right),
+                            leading:
+                                const Icon(Icons.keyboard_double_arrow_right),
                             dense: true,
                             title: ParagraphWidget(item.title ?? ''),
                             tileColor: Colors.lightGreen.withOpacity(0.1),

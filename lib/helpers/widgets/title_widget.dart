@@ -24,7 +24,11 @@ class TitleWidget extends StatelessWidget {
       content,
       textAlign: textAlign ?? TextAlign.center,
       style: TextStyle(
-        shadows: [if (shadow) const Shadow(color: Colors.black, offset: Offset(0, 0), blurRadius: 3)],
+        shadows: [
+          if (shadow)
+            const Shadow(
+                color: Colors.black, offset: Offset(0, 0), blurRadius: 3)
+        ],
         color: textColor ?? Colors.black,
         fontSize: fontSize ?? 24,
         fontWeight: fontWeight ?? FontWeight.bold,

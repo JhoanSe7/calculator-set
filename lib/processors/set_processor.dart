@@ -69,7 +69,9 @@ class SetProcessor {
   ViewResponse action(List<String> a, List<String> b, int index) {
     switch (index) {
       case 1:
-        return ViewResponse(message: 'El Conjunto B ${!pertain(a, b) ? 'NO' : ''} está contenido en el conjunto A');
+        return ViewResponse(
+            message:
+                'El Conjunto B ${!pertain(a, b) ? 'NO' : ''} está contenido en el conjunto A');
       case 2:
         return ViewResponse(
           message: 'La Unión del Conjunto A y el Conjunto B es:',
@@ -87,7 +89,8 @@ class SetProcessor {
         );
       case 5:
         return ViewResponse(
-          message: 'La Diferencia Absoluta del Conjunto A respecto al Conjunto B es:',
+          message:
+              'La Diferencia Absoluta del Conjunto A respecto al Conjunto B es:',
           body: absolute(a, b).formatter(),
         );
       case 6:

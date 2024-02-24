@@ -92,7 +92,8 @@ class GeneratorPageState extends State<GeneratorPage> {
               const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: ParagraphWidget(_message, textColor: Colors.grey[900], textAlign: TextAlign.center),
+                child: ParagraphWidget(_message,
+                    textColor: Colors.grey[900], textAlign: TextAlign.center),
               ),
               const SizedBox(height: 10),
               TitleWidget(

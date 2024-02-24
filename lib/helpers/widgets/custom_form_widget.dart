@@ -63,7 +63,9 @@ class CustomFormWidgetState extends State<CustomFormWidget> {
           onChange: (str) => widget.secondOnChange(str),
           helpText: widget.helpText,
         ),
-        if (_showError) ParagraphWidget(widget.errorText, textColor: Colors.redAccent, fontSize: 16),
+        if (_showError)
+          ParagraphWidget(widget.errorText,
+              textColor: Colors.redAccent, fontSize: 16),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,7 +89,8 @@ class CustomFormWidgetState extends State<CustomFormWidget> {
 
   _firstAction() {
     FocusScope.of(context).unfocus();
-    if (widget.firstController.text.trim().isEmpty || widget.secondController.text.trim().isEmpty) {
+    if (widget.firstController.text.trim().isEmpty ||
+        widget.secondController.text.trim().isEmpty) {
       setState(() {
         _showError = true;
       });

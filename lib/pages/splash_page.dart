@@ -18,7 +18,8 @@ class SplashPageState extends State<SplashPage> {
   }
 
   _init() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const HomePage()));
   }
 
   @override

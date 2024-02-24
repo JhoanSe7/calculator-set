@@ -31,7 +31,10 @@ class CustomTextFieldWidget extends StatelessWidget {
         style: TextStyle(color: Colors.grey[900]),
         decoration: InputDecoration(
           labelText: title,
-          labelStyle: const TextStyle(color: Colors.lightGreen, fontWeight: FontWeight.bold, fontSize: 18),
+          labelStyle: const TextStyle(
+              color: Colors.lightGreen,
+              fontWeight: FontWeight.bold,
+              fontSize: 18),
           hintText: helpText,
           hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
           border: InputBorder.none,
