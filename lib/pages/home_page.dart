@@ -73,7 +73,9 @@ class _HomePageState extends State<HomePage> {
               title: "Lenguajes",
               icon: path.icons + icons.lenguaje,
               items: [
-                Item(title: 'Vacío', action: () {}),
+                Item(title: 'Concatenación', action: () => _goToLanguage('Concatenación', 1)),
+                Item(title: 'Potenciación', action: () => _goToLanguage('Potenciación', 2)),
+                Item(title: 'Inversa o Trasposición', action: () => _goToLanguage('Inversa o Trasposición', 3)),
               ],
             ),
           ],
@@ -121,6 +123,16 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(
         builder: (context) => GeneratorPage(title: page, index: index, view: ViewPage.string),
+      ),
+    );
+  }
+
+  _goToLanguage(String page, int index) {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GeneratorPage(title: page, index: index, view: ViewPage.language),
       ),
     );
   }

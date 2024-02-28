@@ -1,6 +1,8 @@
+import 'package:calculator/helpers/widgets/custom_form_pow_widget.dart';
 import 'package:calculator/helpers/widgets/custom_form_widget.dart';
 import 'package:calculator/helpers/widgets/paragraph_widget.dart';
 import 'package:calculator/helpers/widgets/title_widget.dart';
+import 'package:calculator/processors/language_processor.dart';
 import 'package:calculator/processors/set_processor.dart';
 import 'package:calculator/processors/string_processor.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +24,8 @@ class GeneratorPage extends StatefulWidget {
 }
 
 class GeneratorPageState extends State<GeneratorPage> {
-  TextEditingController _controllerA = TextEditingController();
-  TextEditingController _controllerB = TextEditingController();
+  final TextEditingController _controllerA = TextEditingController();
+  final TextEditingController _controllerB = TextEditingController();
 
   List<String> _listA = [];
   List<String> _listB = [];
@@ -35,6 +37,8 @@ class GeneratorPageState extends State<GeneratorPage> {
   String _title = "";
   String _helpText = "";
   String _label = "";
+  bool _showPow = false;
+  bool _hideBox = false;
 
   @override
   void initState() {
@@ -48,17 +52,27 @@ class GeneratorPageState extends State<GeneratorPage> {
         _title = "Conjuntos";
         _label = "Conjunto";
         _helpText = 'Ingrese los valores separados por coma ( , )';
-
+        break;
       case ViewPage.string:
         _title = "Cadenas";
         _label = "Cadena";
         _helpText = 'Ingrese una cadena';
+        _showPow = widget.index == 3;
+        _hideBox = widget.index == 4;
+        break;
+      case ViewPage.language:
+        _title = "Lenguajes";
+        _label = "Palabra";
+        _helpText = 'Ingrese una palabra';
+        _showPow = widget.index == 2;
+        _hideBox = widget.index == 3;
     }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
@@ -73,21 +87,33 @@ class GeneratorPageState extends State<GeneratorPage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            CustomFormWidget(
-              title: widget.title,
-              firstLabel: '$_label A',
-              secondLabel: '$_label B',
-              helpText: _helpText,
-              errorText: 'No deje campos vacios',
-              firstButton: 'Procesar',
-              secondButton: 'Limpiar',
-              firstController: _controllerA,
-              secondController: _controllerB,
-              firstAction: () => _actions(),
-              secondAction: () => _clear(),
-              firstOnChange: (str) => _clean(),
-              secondOnChange: (str) => _clean(),
-            ),
+            _showPow
+                ? CustomFormPowWidget(
+                    title: widget.title,
+                    label: _label,
+                    firstController: _controllerA,
+                    secondController: _controllerB,
+                    firstAction: () => _actions(),
+                    secondAction: () => _clear(),
+                    firstOnChange: (str) => _clean(),
+                    secondOnChange: (str) => _clean(),
+                  )
+                : CustomFormWidget(
+                    title: widget.title,
+                    firstLabel: '$_label A',
+                    secondLabel: '$_label B',
+                    helpText: _helpText,
+                    errorText: 'No deje campos vacios',
+                    firstButton: 'Procesar',
+                    secondButton: 'Limpiar',
+                    firstController: _controllerA,
+                    secondController: _controllerB,
+                    firstAction: () => _actions(),
+                    secondAction: () => _clear(),
+                    firstOnChange: (str) => _clean(),
+                    secondOnChange: (str) => _clean(),
+                    hideBox: _hideBox,
+                  ),
             if (_message.isNotEmpty) ...[
               const SizedBox(height: 30),
               Padding(
@@ -95,10 +121,22 @@ class GeneratorPageState extends State<GeneratorPage> {
                 child: ParagraphWidget(_message, textColor: Colors.grey[900], textAlign: TextAlign.center),
               ),
               const SizedBox(height: 10),
-              TitleWidget(
-                _result,
-                textColor: Colors.lightGreen,
-              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                height: size.height * 0.2,
+                child: Scrollbar(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TitleWidget(
+                          _result,
+                          textColor: Colors.lightGreen,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ]
           ],
         ),
@@ -146,12 +184,24 @@ class GeneratorPageState extends State<GeneratorPage> {
     });
   }
 
+  _languageProcessor() {
+    _chainA = _controllerA.text.trim();
+    _chainB = _controllerB.text.trim();
+    final res = languageProcessor.action(_chainA, _chainB, widget.index);
+    setState(() {
+      _message = res.message ?? '';
+      _result = res.body ?? '';
+    });
+  }
+
   _actions() {
     switch (widget.view) {
       case ViewPage.set:
         return _setProcessor();
       case ViewPage.string:
         return _stringProcessor();
+      case ViewPage.language:
+        return _languageProcessor();
     }
   }
 }
@@ -159,4 +209,5 @@ class GeneratorPageState extends State<GeneratorPage> {
 enum ViewPage {
   set,
   string,
+  language,
 }

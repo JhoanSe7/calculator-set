@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
   final String title;
   final TextEditingController controller;
   final String? helpText;
   final Function onChange;
+  final double? width;
+  final TextInputType? textInputType;
+  final List<TextInputFormatter>? formatter;
 
   const CustomTextFieldWidget({
     super.key,
@@ -12,6 +16,9 @@ class CustomTextFieldWidget extends StatelessWidget {
     required this.controller,
     required this.onChange,
     this.helpText,
+    this.width,
+    this.textInputType,
+    this.formatter,
   });
 
   @override
@@ -23,8 +30,10 @@ class CustomTextFieldWidget extends StatelessWidget {
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(20),
       ),
-      width: size.width * 0.9,
+      width: size.width * (width ?? 0.9),
       child: TextField(
+        inputFormatters: formatter,
+        keyboardType: textInputType,
         textInputAction: TextInputAction.done,
         controller: controller,
         onChanged: (str) => onChange(str),

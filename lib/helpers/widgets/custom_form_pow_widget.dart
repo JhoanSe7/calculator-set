@@ -6,45 +6,33 @@ import 'custom_texfield_widget.dart';
 import 'paragraph_widget.dart';
 import 'title_widget.dart';
 
-class CustomFormWidget extends StatefulWidget {
+class CustomFormPowWidget extends StatefulWidget {
   final String title;
-  final String firstLabel;
-  final String secondLabel;
-  final String helpText;
-  final String errorText;
-  final String firstButton;
-  final String secondButton;
+  final String label;
   final TextEditingController firstController;
   final TextEditingController secondController;
   final Function firstAction;
   final Function secondAction;
   final Function firstOnChange;
   final Function secondOnChange;
-  final bool hideBox;
 
-  const CustomFormWidget({
+  const CustomFormPowWidget({
     super.key,
     required this.title,
-    required this.firstLabel,
-    required this.secondLabel,
-    required this.helpText,
-    required this.errorText,
-    required this.firstButton,
-    required this.secondButton,
+    required this.label,
     required this.firstController,
     required this.secondController,
     required this.firstAction,
     required this.secondAction,
     required this.firstOnChange,
     required this.secondOnChange,
-    this.hideBox = false,
   });
 
   @override
-  State<CustomFormWidget> createState() => CustomFormWidgetState();
+  State<CustomFormPowWidget> createState() => CustomFormPowWidgetState();
 }
 
-class CustomFormWidgetState extends State<CustomFormWidget> {
+class CustomFormPowWidgetState extends State<CustomFormPowWidget> {
   bool _showError = false;
 
   @override
@@ -54,33 +42,34 @@ class CustomFormWidgetState extends State<CustomFormWidget> {
         TitleWidget(widget.title, textColor: Colors.lightGreen),
         const SizedBox(height: 10),
         CustomTextFieldWidget(
-          title: widget.firstLabel,
+          title: widget.label,
           controller: widget.firstController,
           onChange: (str) => widget.firstOnChange(str),
-          helpText: widget.helpText,
-          formatter: onlyAlphaNumeric(withSeparator: true),
+          helpText: 'Ingrese una ${widget.label}',
+          formatter: onlyAlphaNumeric(),
         ),
         const SizedBox(height: 10),
-        if (!widget.hideBox)
-          CustomTextFieldWidget(
-            title: widget.secondLabel,
-            controller: widget.secondController,
-            onChange: (str) => widget.secondOnChange(str),
-            helpText: widget.helpText,
-            formatter: onlyAlphaNumeric(withSeparator: true),
-          ),
-        if (_showError) ParagraphWidget(widget.errorText, textColor: Colors.redAccent, fontSize: 16),
+        CustomTextFieldWidget(
+          title: 'Potencia',
+          controller: widget.secondController,
+          onChange: (str) => widget.secondOnChange(str),
+          helpText: 'Ingrese un numero',
+          textInputType: TextInputType.number,
+          width: 0.4,
+          formatter: onlyNumeric(),
+        ),
+        if (_showError) const ParagraphWidget('No deje campos vacios', textColor: Colors.redAccent, fontSize: 16),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             CustomButtonWidget(
-              widget.firstButton,
+              'Procesar',
               backgroundColor: Colors.lightGreen,
               onTap: () => _firstAction(),
             ),
             CustomButtonWidget(
-              widget.secondButton,
+              'Limpiar',
               textColor: Colors.lightGreen,
               backgroundColor: Colors.white,
               onTap: () => _secondAction(),
@@ -93,20 +82,11 @@ class CustomFormWidgetState extends State<CustomFormWidget> {
 
   _firstAction() {
     FocusScope.of(context).unfocus();
-    if (widget.hideBox) {
-      if (widget.firstController.text.trim().isEmpty) {
-        setState(() {
-          _showError = true;
-        });
-        return;
-      }
-    } else {
-      if (widget.firstController.text.trim().isEmpty || widget.secondController.text.trim().isEmpty) {
-        setState(() {
-          _showError = true;
-        });
-        return;
-      }
+    if (widget.firstController.text.trim().isEmpty || widget.secondController.text.trim().isEmpty) {
+      setState(() {
+        _showError = true;
+      });
+      return;
     }
     setState(() {
       _showError = false;
