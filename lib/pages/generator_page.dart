@@ -39,6 +39,7 @@ class GeneratorPageState extends State<GeneratorPage> {
   String _label = "";
   bool _showPow = false;
   bool _hideBox = false;
+  bool _separator = false;
 
   @override
   void initState() {
@@ -63,9 +64,10 @@ class GeneratorPageState extends State<GeneratorPage> {
       case ViewPage.language:
         _title = "Lenguajes";
         _label = "Palabra";
-        _helpText = 'Ingrese una palabra';
+        _helpText = 'Ingrese las palabras separadas por coma ( , )';
         _showPow = widget.index == 2;
         _hideBox = widget.index == 3;
+        _separator = widget.index == 2;
     }
     setState(() {});
   }
@@ -83,7 +85,7 @@ class GeneratorPageState extends State<GeneratorPage> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -93,10 +95,12 @@ class GeneratorPageState extends State<GeneratorPage> {
                     label: _label,
                     firstController: _controllerA,
                     secondController: _controllerB,
+                    helpText: _helpText,
                     firstAction: () => _actions(),
                     secondAction: () => _clear(),
                     firstOnChange: (str) => _clean(),
                     secondOnChange: (str) => _clean(),
+                    separator: _separator,
                   )
                 : CustomFormWidget(
                     title: widget.title,
@@ -185,9 +189,9 @@ class GeneratorPageState extends State<GeneratorPage> {
   }
 
   _languageProcessor() {
-    _chainA = _controllerA.text.trim();
-    _chainB = _controllerB.text.trim();
-    final res = languageProcessor.action(_chainA, _chainB, widget.index);
+    _listA = _controllerA.text.split(",").map((a) => a.trim()).toList();
+    _listB = _controllerB.text.split(",").map((b) => b.trim()).toList();
+    final res = languageProcessor.action(_listA, _listB, widget.index);
     setState(() {
       _message = res.message ?? '';
       _result = res.body ?? '';

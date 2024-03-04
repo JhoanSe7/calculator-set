@@ -9,23 +9,27 @@ import 'title_widget.dart';
 class CustomFormPowWidget extends StatefulWidget {
   final String title;
   final String label;
+  final String helpText;
   final TextEditingController firstController;
   final TextEditingController secondController;
   final Function firstAction;
   final Function secondAction;
   final Function firstOnChange;
   final Function secondOnChange;
+  final bool separator;
 
   const CustomFormPowWidget({
     super.key,
     required this.title,
     required this.label,
+    required this.helpText,
     required this.firstController,
     required this.secondController,
     required this.firstAction,
     required this.secondAction,
     required this.firstOnChange,
     required this.secondOnChange,
+    this.separator = false,
   });
 
   @override
@@ -45,8 +49,8 @@ class CustomFormPowWidgetState extends State<CustomFormPowWidget> {
           title: widget.label,
           controller: widget.firstController,
           onChange: (str) => widget.firstOnChange(str),
-          helpText: 'Ingrese una ${widget.label}',
-          formatter: onlyAlphaNumeric(),
+          helpText: widget.helpText,
+          formatter: onlyAlphaNumeric(withSeparator: widget.separator),
         ),
         const SizedBox(height: 10),
         CustomTextFieldWidget(

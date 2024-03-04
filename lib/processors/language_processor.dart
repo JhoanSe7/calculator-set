@@ -1,42 +1,60 @@
+import 'package:calculator/helpers/list_extension.dart';
 import 'package:calculator/models/view_response.dart';
 
 class LanguageProcessor {
-  String concatenate(String a, String b) {
-    return a + b;
-  }
+  final emptyChar = "λ";
 
-  String pow(String a, String b) {
-    String result = '';
-    int n = int.parse(b);
-    if (n == 0) return "λ";
-    for (int i = 0; i < n; i++) {
-      result += a;
+  List<String> concatenate(List<String> a, List<String> b) {
+    List<String> resultList = [];
+    for (String x in a) {
+      for (String y in b) {
+        resultList.add(x + y);
+      }
     }
-    return result;
+    resultList.sort((a, b) => a.length.compareTo(b.length));
+    return resultList;
   }
 
-  String reverse(String a) {
-    List<String> tempList = a.split('');
-    tempList = tempList.reversed.toList();
-    return tempList.join();
+  List<String> pow(List<String> a, String b) {
+    List<String> resultList = [];
+    int n = int.parse(b);
+    if (n == 0) {
+      resultList.add(emptyChar);
+      return resultList;
+    }
+    resultList.add('');
+    for (int i = 0; i < n; i++) {
+      resultList = concatenate(resultList, a);
+    }
+    resultList.sort((a, b) => a.length.compareTo(b.length));
+    return resultList;
   }
 
-  ViewResponse action(String a, String b, int index) {
+  List<String> reverse(List<String> a) {
+    List<String> resultList = [];
+    for (String element in a) {
+      var tempList = element.split('');
+      resultList.add(tempList.reversed.toList().join());
+    }
+    return resultList;
+  }
+
+  ViewResponse action(List<String> a, List<String> b, int index) {
     switch (index) {
       case 1:
         return ViewResponse(
           message: 'La Concatenación de las palabras A y B es:',
-          body: concatenate(a, b),
+          body: concatenate(a, b).formatter(),
         );
       case 2:
         return ViewResponse(
-          message: 'La Potenciación de la palabra A = $a \nElevado a la potencia $b es:',
-          body: pow(a, b),
+          message: 'La Potenciación de las palabras A = $a \nElevado a la potencia $b es:',
+          body: pow(a, b.first).formatter(),
         );
       case 3:
         return ViewResponse(
           message: 'La Trasposición o Inversa de la cadena es:',
-          body: reverse(a),
+          body: reverse(a).formatter(),
         );
 
       default:
