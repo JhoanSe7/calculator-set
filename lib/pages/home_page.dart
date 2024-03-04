@@ -2,6 +2,7 @@ import 'package:calculator/helpers/paths/paths.dart';
 import 'package:calculator/helpers/widgets/custom_dropdown_menu_widget.dart';
 import 'package:calculator/helpers/widgets/title_widget.dart';
 import 'package:calculator/models/item.dart';
+import 'package:calculator/pages/info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -34,12 +35,18 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(color: Colors.lightGreen.withOpacity(.9)),
               child: Column(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    height: 90,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(path.images + images.calc),
+                  Hero(
+                    tag: 'info',
+                    child: GestureDetector(
+                      onTap: () => _goToInfo(),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        height: 90,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(path.images + images.calc),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -103,6 +110,16 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  _goToInfo() {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const InfoPage(),
       ),
     );
   }
