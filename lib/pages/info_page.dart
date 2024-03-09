@@ -2,7 +2,9 @@ import 'package:calculator/helpers/paths/assets_path.dart';
 import 'package:calculator/helpers/paths/images_path.dart';
 import 'package:calculator/helpers/widgets/paragraph_widget.dart';
 import 'package:calculator/helpers/widgets/title_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -17,8 +19,8 @@ class InfoPage extends StatelessWidget {
         height: size.height,
         decoration: BoxDecoration(color: Colors.lightGreen.withOpacity(.7)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: size.height * .25),
             Hero(
               tag: 'info',
               child: Container(
@@ -44,9 +46,21 @@ class InfoPage extends StatelessWidget {
               textColor: Colors.white,
               fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 50),
-            const ParagraphWidget('Desarrollado por: Jhoan Silva'),
-            const ParagraphWidget('Apoyo de: Carlos y Brayan', fontSize: 10)
+            const SizedBox(height: 30),
+            const ParagraphWidget(
+              'Automatas y Lenguajes Formales',
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
+            const ParagraphWidget('Jhoan Silva'),
+            const ParagraphWidget('Carlos Santos'),
+            const ParagraphWidget('Brayan Villamizar'),
+            const Spacer(),
+            const ParagraphWidget(
+              'Powered by: @JhoanSe7',
+              fontSize: 10,
+            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

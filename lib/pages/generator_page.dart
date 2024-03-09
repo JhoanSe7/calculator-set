@@ -1,3 +1,4 @@
+import 'package:calculator/helpers/description.dart';
 import 'package:calculator/helpers/widgets/custom_form_pow_widget.dart';
 import 'package:calculator/helpers/widgets/custom_form_widget.dart';
 import 'package:calculator/helpers/widgets/paragraph_widget.dart';
@@ -141,7 +142,13 @@ class GeneratorPageState extends State<GeneratorPage> {
                   ),
                 ),
               )
-            ]
+            ],
+            if (_message.isEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                child: ParagraphWidget(getLBL(widget.view, widget.index),
+                    textColor: Colors.grey[900], textAlign: TextAlign.center),
+              ),
           ],
         ),
       ),
