@@ -30,22 +30,22 @@ class StringProcessor {
       case 1:
         return ViewResponse(
           message: 'La Longitud de la cadena A es ${a.length}\nLa Longitud de la cadena B es ${b.length}',
-          body: 'La Longitud total es: ${length(a, b)}',
+          body: 'Long T = Long A + Long B\nLong T = ${length(a, b)}',
         );
       case 2:
         return ViewResponse(
           message: 'La Concatenación de las cadenas A y B es:',
-          body: concatenate(a, b),
+          body: "A⋅B = ${concatenate(a, b)}",
         );
       case 3:
         return ViewResponse(
           message: 'La Potenciación de la cadena A = $a \nElevado a la potencia $b es:',
-          body: pow(a, b),
+          body: "A^$b = ${pow(a, b)}",
         );
       case 4:
         return ViewResponse(
           message: 'La Trasposición o Inversa de la cadena es:',
-          body: reverse(a),
+          body: "A^R = ${reverse(a)}",
         );
       default:
         return ViewResponse(message: 'En construccion ...');

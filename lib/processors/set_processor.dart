@@ -69,31 +69,34 @@ class SetProcessor {
   ViewResponse action(List<String> a, List<String> b, int index) {
     switch (index) {
       case 1:
-        return ViewResponse(message: 'El Conjunto B ${!pertain(a, b) ? 'NO' : ''} está contenido en el conjunto A');
+        return ViewResponse(
+          message: 'El Conjunto B ${!pertain(a, b) ? 'NO' : ''} está contenido en el conjunto A',
+          body: 'B ${!pertain(a, b) ? '∉' : '∈'} A',
+        );
       case 2:
         return ViewResponse(
           message: 'La Unión del Conjunto A y el Conjunto B es:',
-          body: union(a, b).formatter(),
+          body: "A U B = ${union(a, b).formatter()}",
         );
       case 3:
         return ViewResponse(
           message: 'La Intersección del Conjunto A y el Conjunto B es:',
-          body: interception(a, b).formatter(),
+          body: "A ∩ B = ${interception(a, b).formatter()}",
         );
       case 4:
         return ViewResponse(
           message: 'El Complemento del Conjunto B respecto al Conjunto A es:',
-          body: complement(a, b).formatter(),
+          body: "A’ = ${complement(a, b).formatter()}",
         );
       case 5:
         return ViewResponse(
           message: 'La Diferencia Absoluta del Conjunto A respecto al Conjunto B es:',
-          body: absolute(a, b).formatter(),
+          body: "A \\ B = ${absolute(a, b).formatter()}",
         );
       case 6:
         return ViewResponse(
           message: 'La Diferencia Simetrica del Conjunto A y el Conjunto B es:',
-          body: symmetric(a, b).formatter(),
+          body: "A ⊕ B = ${symmetric(a, b).formatter()}",
         );
       default:
         return ViewResponse(message: 'En construccion ...');

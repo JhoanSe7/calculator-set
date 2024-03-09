@@ -66,7 +66,7 @@ class GeneratorPageState extends State<GeneratorPage> {
         _label = "Palabra";
         _helpText = 'Ingrese las palabras separadas por coma ( , )';
         _showPow = widget.index == 2;
-        _hideBox = widget.index == 3;
+        _hideBox = widget.index == 3 || widget.index == 7 || widget.index == 8;
         _separator = widget.index == 2;
     }
     setState(() {});
