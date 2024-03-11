@@ -1,3 +1,4 @@
+import 'package:calculator/helpers/config.dart';
 import 'package:calculator/helpers/paths/assets_path.dart';
 import 'package:calculator/helpers/paths/images_path.dart';
 import 'package:calculator/helpers/widgets/paragraph_widget.dart';
@@ -41,7 +42,7 @@ class InfoPage extends StatelessWidget {
               shadow: true,
             ),
             const TitleWidget(
-              "v1.0.0",
+              "v$version",
               fontSize: 16,
               textColor: Colors.white,
               fontWeight: FontWeight.w500,
