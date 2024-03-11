@@ -81,20 +81,24 @@ class LanguageProcessor {
   }
 
   List<String> kleeneClosure(List<String> a) {
+    Set<String> resultSet = {};
     List<String> resultList = [];
     resultList.add("");
     for (int i = 1; i < maxIteration; i++) {
-      resultList.addAll(pow(a, i.toString()));
+      resultSet.addAll(pow(a, i.toString()));
     }
+    resultList = resultSet.toList();
     resultList.sort((a, b) => a.length.compareTo(b.length));
     return resultList.emptyFormat();
   }
 
   List<String> positiveClosure(List<String> a) {
+    Set<String> resultSet = {};
     List<String> resultList = [];
     for (int i = 1; i < maxIteration; i++) {
-      resultList.addAll(pow(a, i.toString()));
+      resultSet.addAll(pow(a, i.toString()));
     }
+    resultList = resultSet.toList();
     resultList.sort((a, b) => a.length.compareTo(b.length));
     return resultList.emptyFormat();
   }
