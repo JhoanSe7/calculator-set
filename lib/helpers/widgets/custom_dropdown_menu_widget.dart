@@ -35,9 +35,7 @@ class CustomDropdownMenuWidgetState extends State<CustomDropdownMenuWidget> {
             ExpansionPanel(
               headerBuilder: (BuildContext context, bool isExpanded) => ListTile(
                 leading: Image.asset(widget.icon, width: 20, height: 20),
-                onTap: () => setState(() {
-                  _isExpanded = !isExpanded;
-                }),
+                onTap: () => _changeMenu(!isExpanded),
                 title: TitleWidget(
                   widget.title,
                   textAlign: TextAlign.start,
@@ -57,13 +55,15 @@ class CustomDropdownMenuWidgetState extends State<CustomDropdownMenuWidget> {
               isExpanded: _isExpanded,
             ),
           ],
-          expansionCallback: (int index, bool isExpanded) {
-            setState(() {
-              _isExpanded = !isExpanded;
-            });
-          },
+          expansionCallback: (int index, bool isExpanded) => _changeMenu(isExpanded),
         ),
       ),
     );
+  }
+
+  _changeMenu(bool state) {
+    setState(() {
+      _isExpanded = state;
+    });
   }
 }
