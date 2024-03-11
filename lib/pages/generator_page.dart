@@ -128,8 +128,11 @@ class GeneratorPageState extends State<GeneratorPage> {
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                height: size.height * 0.2,
+                height: size.height * 0.4,
                 child: Scrollbar(
+                  thumbVisibility: true,
+                  interactive: true,
+                  trackVisibility: true,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
